@@ -22,7 +22,7 @@
 */
 
 /*
- * This file tmr.h represents the header file of the timer component.
+ * This file int.h represents the header file of the interrupt component.
  *
  * Author : Marco Russi
  *
@@ -32,34 +32,14 @@
 */
 
 
-/* ---------- Inclusion files ---------------- */
+#include "p32mx795f512l.h"
+
 #include "fw_common.h"
 
 
-
-
-/* ------------- Exported definitions ------------- */
-
-/* Tick timer period */
-#define TMR_UL_TICK_PERIOD_US           RTOS_UL_TICK_PERIOD_US
+EXTERN void INT_EnableInt( void );
 
 
 
 
-/* ------------- Exported macros ---------------- */
 
-#define TMR_TickPerSecond()             (1000)
-
-
-
-
-/* ------------ Exported functions prototypes -------------- */
-
-EXTERN void     TMR_TickTimerStart  ( void );
-EXTERN void     TMR_TickTimerStop   ( void );
-EXTERN uint16   TMR_getTimerCounter ( void );
-
-
-
-
-/* End of file */

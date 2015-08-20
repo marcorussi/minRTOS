@@ -72,10 +72,10 @@ typedef enum
 ==============================================================================*/
 
 /* Tick timer period */
-#define RTOS_UL_TICK_PERIOD_US          ((uint32)10000)      /* 10 ms */
+#define RTOS_UL_TICK_PERIOD_US          ((uint32)10000)     /* 10 ms */
 
 /* Tick timer period */
-#define RTOS_UL_TASKS_PERIOD_MS         ((uint32)50)        /* 50 ms */
+#define RTOS_UL_TASKS_PERIOD_MS         ((uint32)200)       /* 200 ms */
 
 /* Tick periods per second */
 #define RTOS_UL_TICK_PER_SEC            ((uint32)(UL_1000000 / RTOS_UL_TICK_PERIOD_US))
@@ -99,7 +99,7 @@ EXTERN void     RTOS_startOperation         (RTOS_CFG_ke_states);
 EXTERN void     RTOS_executeTask            (void);
 EXTERN uint32   RTOS_tickCountGet           (void);
 
-EXTERN void RTOS_CallbackTemp ( void );
+
 
 
 #endif

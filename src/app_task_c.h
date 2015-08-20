@@ -22,44 +22,31 @@
 */
 
 /*
- * This file tmr.h represents the header file of the timer component.
+ * This file app_task_c.h represents the inclusion file of the demo application task C.
  *
  * Author : Marco Russi
  *
  * Evolution of the file:
- * 06/08/2015 - File created - Marco Russi
+ * 20/08/2015 - File created - Marco Russi
  *
 */
 
 
-/* ---------- Inclusion files ---------------- */
+
+
+/* ------------ Inclusion files ---------------- */
 #include "fw_common.h"
 
 
 
 
-/* ------------- Exported definitions ------------- */
+/* ------------ Exported functions prototypes ---------------- */
 
-/* Tick timer period */
-#define TMR_UL_TICK_PERIOD_US           RTOS_UL_TICK_PERIOD_US
-
-
-
-
-/* ------------- Exported macros ---------------- */
-
-#define TMR_TickPerSecond()             (1000)
-
-
-
-
-/* ------------ Exported functions prototypes -------------- */
-
-EXTERN void     TMR_TickTimerStart  ( void );
-EXTERN void     TMR_TickTimerStop   ( void );
-EXTERN uint16   TMR_getTimerCounter ( void );
+EXTERN void APP_TaskC_Init          ( void );
+EXTERN void APP_TaskC_PeriodicTask  ( void );
 
 
 
 
 /* End of file */
+

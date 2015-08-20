@@ -22,42 +22,39 @@
 */
 
 /*
- * This file tmr.h represents the header file of the timer component.
+ * This file app_task_b.c represents the source file of the demo application task B.
  *
  * Author : Marco Russi
  *
  * Evolution of the file:
- * 06/08/2015 - File created - Marco Russi
+ * 20/08/2015 - File created - Marco Russi
  *
 */
 
 
-/* ---------- Inclusion files ---------------- */
+
+
+/* ------------ Inclusion files ---------------- */
+#include "p32mx795f512l.h"
 #include "fw_common.h"
 
 
 
 
-/* ------------- Exported definitions ------------- */
+/* ------------ Exported functions ---------------- */
 
-/* Tick timer period */
-#define TMR_UL_TICK_PERIOD_US           RTOS_UL_TICK_PERIOD_US
-
-
-
-
-/* ------------- Exported macros ---------------- */
-
-#define TMR_TickPerSecond()             (1000)
+/* Demo application task B init function */
+EXPORTED void APP_TaskB_Init( void )
+{
+    LATDbits.LATD1 = 1;
+}
 
 
-
-
-/* ------------ Exported functions prototypes -------------- */
-
-EXTERN void     TMR_TickTimerStart  ( void );
-EXTERN void     TMR_TickTimerStop   ( void );
-EXTERN uint16   TMR_getTimerCounter ( void );
+/* Demo application task B init function */
+EXPORTED void APP_TaskB_PeriodicTask( void )
+{
+    LATDbits.LATD1 = !PORTDbits.RD1;
+}
 
 
 

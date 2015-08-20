@@ -22,7 +22,7 @@
 */
 
 /*
- * This file rtos_cfg.c represents the source file of the RTOS configuration component.
+ * This file exc.c represents the only source file for exception handling.
  *
  * Author : Marco Russi
  *
@@ -32,59 +32,35 @@
 */
 
 
-/* ------------- Inclusions ---------------- */
-
-#include "fw_common.h"          /* common file */
-#include "rtos_cfg.h"           /* component RTOS configuration header file */
-#include "app_task_a.h"         /* demo application task A */
-#include "app_task_b.h"         /* demo application task B */
-#include "app_task_c.h"         /* demo application task C */
+/* Defines special funciton registers, CP0 regs  */
+#include <xc.h>          
 
 
+/* Global Data Definitions */
 
+/* static in case exception condition would stop auto variable from being created */
+static unsigned int _excep_code;
+static unsigned int _excep_addr;
 
-/* -------------- Local Variables ------------------ */
+/* Section: Exception Handling */
 
-/* INIT state tasks */
-static task_ptr_t const initState_ap[] =
+/* This function overrides the normal _weak_ _generic_exception_handler which
+is defined in the XC32 User's Guide. */
+
+void _general_exception_handler(void)
 {
-    &APP_TaskA_Init,
-    &APP_TaskB_Init,
-    &APP_TaskC_Init,
-    NULL_PTR
-};
+    /* Mask off Mask of the ExcCode Field from the Cause Register
+    Refer to the MIPs Software User's manual */
+    _excep_code=_CP0_GET_CAUSE() & 0x0000007C >> 2;
+    _excep_addr=_CP0_GET_EPC();
 
+    _CP0_SET_STATUS(_CP0_GET_STATUS()&0xFFFFFFE); /* Disable Interrupts */
 
-/* NORMAL state tasks */
-static task_ptr_t const normalState_ap[] =
-{
-    &APP_TaskA_PeriodicTask,
-    &APP_TaskB_PeriodicTask,
-    &APP_TaskC_PeriodicTask,
-    NULL_PTR
-};
+    while (1)
+    {
+        /* DOTO: Implement any addition exception handling */
 
-
-/* SLEEP state tasks */
-static task_ptr_t const sleepState_ap[] =
-{
-    NULL_PTR
-};
-
-
-
-
-/* ------------ Exported Variables ----------------- */
-
-/* RTOS states array: This order shall be the same of RTOS_CFG_ke_states enum */
-rtos_state_t * const RTOS_CFG_statesArray_at[RTOS_CFG_KE_STATE_MAX_NUM] =
-{
-    initState_ap
-   ,normalState_ap
-   ,sleepState_ap
-};
-
-
-
-
-/* End of file */
+        /* Examine _excep_code to identify the type of exception */
+        /* Examine _excep_addr to find the address that caused the exception */
+    }
+}

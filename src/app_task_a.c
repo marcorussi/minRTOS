@@ -22,42 +22,57 @@
 */
 
 /*
- * This file tmr.h represents the header file of the timer component.
+ * This file app_task_a.c represents the source file of the demo application task A.
  *
  * Author : Marco Russi
  *
  * Evolution of the file:
- * 06/08/2015 - File created - Marco Russi
+ * 20/08/2015 - File created - Marco Russi
  *
 */
 
 
-/* ---------- Inclusion files ---------------- */
+
+
+/* ------------ Inclusion files ---------------- */
+#include "p32mx795f512l.h"
 #include "fw_common.h"
+#include "rtos.h"
 
 
 
 
-/* ------------- Exported definitions ------------- */
-
-/* Tick timer period */
-#define TMR_UL_TICK_PERIOD_US           RTOS_UL_TICK_PERIOD_US
+/* ------------ Local functions prototypes ---------------- */
+LOCAL void PeriodicCallback( void );
 
 
 
 
-/* ------------- Exported macros ---------------- */
+/* ------------ Exported functions ---------------- */
 
-#define TMR_TickPerSecond()             (1000)
+/* Demo application task A init function */
+EXPORTED void APP_TaskA_Init( void )
+{
+    LATDbits.LATD2 = 0;
+
+    RTOS_SetCallback(RTOS_CB_ID_1, RTOS_CB_TYPE_PERIODIC, 500, &PeriodicCallback);
+}
+
+
+/* Demo application task A init function */
+EXPORTED void APP_TaskA_PeriodicTask( void )
+{
+    //LATDbits.LATD2 = !PORTDbits.RD2;
+}
 
 
 
 
-/* ------------ Exported functions prototypes -------------- */
-
-EXTERN void     TMR_TickTimerStart  ( void );
-EXTERN void     TMR_TickTimerStop   ( void );
-EXTERN uint16   TMR_getTimerCounter ( void );
+/* ------------ Local functions implementation ---------------- */
+LOCAL void PeriodicCallback( void )
+{
+    LATDbits.LATD2 = !PORTDbits.RD2;
+}
 
 
 

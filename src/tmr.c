@@ -34,14 +34,11 @@
 #include <xc.h>
 #include <sys/attribs.h>
 #include "p32mx795f512l.h"
-#include "../fw_common.h"
-#include "../sal/sys/sys.h"
-
+#include "fw_common.h"
+#include "sys.h"
 #include "tmr.h"
 #include "int.h"
-
-#include "../sal/dio/outch.h"
-#include "../sal/rtos/rtos.h"
+#include "rtos.h"
 
 
 
@@ -112,9 +109,6 @@ void __ISR(_TIMER_1_VECTOR, ipl6) TickTimer_IntHandler (void)
 {
     /* Call RTOS callback function */
     RTOS_TickTimerCallback();
-
-    /* ATTENTION: blinking should be manage by tick timer */
-    OUTCH_ManageBlinking();
 
     CLEAR_T1_INT_FLAG();        /* Clear the T1 interrupt flag */
 }

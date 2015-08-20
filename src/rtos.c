@@ -39,14 +39,12 @@
 /* ------------ Inclusions -------------- */
 
 #include <stddef.h>
-#include "../../fw_common.h"    /* common file */
+#include "fw_common.h"      /* common file */
 
-#include "../../hal/tmr.h"      /* component timer header file */
+#include "tmr.h"            /* component timer header file */
 
-//#include "../../hal/port.h"
-
-#include "rtos_cfg.h"           /* component config header file */
-#include "rtos.h"               /* component header file */
+#include "rtos_cfg.h"       /* component config header file */
+#include "rtos.h"           /* component header file */
 
 
 
@@ -60,7 +58,7 @@
 #define U32_CALLBACK_MAX_VALUE_MS       ((uint32)10000)     /* 10 s */
 
 /* First task index */
-#define U8_FIRST_TASK_INDEX_VALUE       0
+#define U8_FIRST_TASK_INDEX_VALUE       UC_NULL
 
 
 

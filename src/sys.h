@@ -22,7 +22,7 @@
 */
 
 /*
- * This file rtos_cfg.c represents the source file of the RTOS configuration component.
+ * This file sys.h represents the only file for system configuration.
  *
  * Author : Marco Russi
  *
@@ -32,59 +32,27 @@
 */
 
 
-/* ------------- Inclusions ---------------- */
-
-#include "fw_common.h"          /* common file */
-#include "rtos_cfg.h"           /* component RTOS configuration header file */
-#include "app_task_a.h"         /* demo application task A */
-#include "app_task_b.h"         /* demo application task B */
-#include "app_task_c.h"         /* demo application task C */
+#ifndef _SYS_CONFIG_H
+#define _SYS_CONFIG_H
 
 
 
 
-/* -------------- Local Variables ------------------ */
+/* -------------- Exported definitions --------------- */
 
-/* INIT state tasks */
-static task_ptr_t const initState_ap[] =
-{
-    &APP_TaskA_Init,
-    &APP_TaskB_Init,
-    &APP_TaskC_Init,
-    NULL_PTR
-};
-
-
-/* NORMAL state tasks */
-static task_ptr_t const normalState_ap[] =
-{
-    &APP_TaskA_PeriodicTask,
-    &APP_TaskB_PeriodicTask,
-    &APP_TaskC_PeriodicTask,
-    NULL_PTR
-};
-
-
-/* SLEEP state tasks */
-static task_ptr_t const sleepState_ap[] =
-{
-    NULL_PTR
-};
+#define SYS_UL_FOSC         ((uint32)80000000)               /* 80 MHz */
+#define SYS_UL_FCY          ((uint32)(SYS_UL_FOSC / 1))      /* 80 MHz */
+#define SYS_UL_FPB          ((uint32)(SYS_UL_FCY / 2))       /* 40 MHz */
+/* Peripheral clock period in ns */
+#define SYS_US_TPB_NS       ((uint16)(1000000000 / SYS_UL_FPB))
 
 
 
 
-/* ------------ Exported Variables ----------------- */
-
-/* RTOS states array: This order shall be the same of RTOS_CFG_ke_states enum */
-rtos_state_t * const RTOS_CFG_statesArray_at[RTOS_CFG_KE_STATE_MAX_NUM] =
-{
-    initState_ap
-   ,normalState_ap
-   ,sleepState_ap
-};
+#endif 
 
 
 
 
-/* End of file */
+/* End of File */
+
